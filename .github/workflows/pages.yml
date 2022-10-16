@@ -42,13 +42,6 @@ jobs:
           script: |
             const gen = require('./.github/workflows/gen.js');
             gen({ github, context, core });
-      - name: Push to GitHub
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add .
-          git commit -m "bot: generate list.json" --allow-empty
-          git push
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
