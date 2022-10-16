@@ -42,6 +42,8 @@ jobs:
           script: |
             const gen = require('./.github/workflows/gen.js');
             gen({ github, context, core });
+      - name: Remove node_modules
+        run: rm -rf node_modules
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
