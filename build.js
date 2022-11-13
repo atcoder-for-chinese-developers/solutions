@@ -1,4 +1,5 @@
 const fs = require('fs');
+const util = require('util');
 const yamlFront = require('yaml-front-matter');
 const MarkdownIt = require('markdown-it');
 const prism = require('markdown-it-prism');
@@ -28,6 +29,11 @@ function makeDist() {
 	fs.mkdirSync('dist');
 }
 
+function getLastCommit(filename) {
+	let command = util.format("git show --format=\"{\\\"id\\\": \\\"%%H\\\", \\\"short\\\": \\\"%%h\\\", \\\"date\\\": \\\"%%cI\\\"}\" %s | head -1", 'abc');
+
+}
+
 function build() {
 	let files = fs.readdirSync('src');
 	let list = {};
@@ -43,6 +49,7 @@ function build() {
 				list[contest] = list[contest] || {};
 				list[contest][problem] = list[contest][problem] || {};
 				list[contest][problem][ID] = yamlFront.loadFront(fs.readFileSync('src/' + file));
+				list[contest][problem][ID].lastCommit = JSON.parse(fs.readFileSync('commitInfo/' + file + '.json'));
 				let content = list[contest][problem][ID].__content.trim();
 				fs.writeFileSync('dist' + '/' + file, content);
 				fs.writeFileSync('dist' + '/' + fileName + '.html', md.render(content));
@@ -52,6 +59,7 @@ function build() {
 	});
 	let data = {};
 	data.data = list;
+	data.lastCommit = JSON.parse(fs.readFileSync('commitInfo/global.json'));
 	fs.writeFileSync('dist/list.json', JSON.stringify(data));
 }
 
