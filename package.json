@@ -17,11 +17,12 @@
   "homepage": "https://github.com/atcoder-for-chinese-developers/translations#readme",
   "dependencies": {
     "install": "^0.13.0",
+    "jsdom": "^20.0.2",
     "katex": "^0.16.3",
     "markdown-it": "^13.0.1",
-    "markdown-it-prism": "^2.3.0",
     "markdown-it-texmath": "^1.0.0",
     "npm": "^8.19.3",
+    "prismjs": "^1.29.0",
     "yaml-front-matter": "^4.1.1"
   }
 }
