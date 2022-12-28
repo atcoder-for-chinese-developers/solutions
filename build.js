@@ -2,11 +2,28 @@ const fs = require('fs');
 const util = require('util');
 const yamlFront = require('yaml-front-matter');
 const MarkdownIt = require('markdown-it');
-const prism = require('markdown-it-prism');
 const tex = require('markdown-it-texmath');
 
-let md = new MarkdownIt();
-md.use(prism, { defaultLanguage: 'plain' });
+const Prism = require('prismjs');
+const loadLanguages = require('prismjs/components/');
+const { enableLineNumbers } = require('./plugins/prism/line-numbers');
+const { JSDOM } = require('jsdom');
+
+let dom = new JSDOM();
+
+enableLineNumbers(Prism, dom.window);
+
+function highlight(str, lang) {
+	if (lang) loadLanguages([ lang ]);
+	let document = dom.window.document;
+	document.body.innerHTML = `<pre class="language-${ lang } line-numbers"><code>${ str }</code></pre>`;
+	Prism.highlightAllUnder(document);
+	return document.body.innerHTML.trim();
+}
+
+let md = MarkdownIt({
+	highlight: highlight
+});
 md.use(tex, {
 	engine: require('katex'),
 	delimiters: 'dollars'
