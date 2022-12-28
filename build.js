@@ -16,7 +16,7 @@ enableLineNumbers(Prism, dom.window);
 function highlight(str, lang) {
 	if (lang) loadLanguages([ lang ]);
 	let document = dom.window.document;
-	document.body.innerHTML = `<pre class="language-${ lang } line-numbers"><code>${ str }</code></pre>`;
+	document.body.innerHTML = `<pre class="language-${ lang } line-numbers"><code>${ require('escape-html')(str) }</code></pre>`;
 	Prism.highlightAllUnder(document);
 	return document.body.innerHTML.trim();
 }
