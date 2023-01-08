@@ -7,4 +7,4 @@
   for = "/*"
   [headers.values]
     Access-Control-Allow-Origin = "https://atcoder-for-chinese.netlify.app"
-    Access-Control-Allow-Credentials = true
+    Access-Control-Allow-Credentials = "true"
