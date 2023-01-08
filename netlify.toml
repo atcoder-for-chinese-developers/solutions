@@ -1,0 +1,10 @@
+[build]
+  base = ""
+  publish = "dist/"
+  command = "npm run build"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "https://atcoder-for-chinese.netlify.app"
+    Access-Control-Allow-Credentials = true
