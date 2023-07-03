@@ -3,6 +3,7 @@ const util = require('util');
 const yamlFront = require('yaml-front-matter');
 const MarkdownIt = require('markdown-it');
 const tex = require('markdown-it-texmath');
+const MarkdownItAnchor = require('markdown-it-anchor');
 
 const Prism = require('prismjs');
 const loadLanguages = require('prismjs/components/');
@@ -28,6 +29,7 @@ md.use(tex, {
 	engine: require('katex'),
 	delimiters: 'dollars'
 });
+md.use(MarkdownItAnchor);
 
 function deleteDirectory(path) {
 	if (fs.existsSync(path)) {
@@ -44,11 +46,6 @@ function deleteDirectory(path) {
 function makeDist() {
 	deleteDirectory('dist');
 	fs.mkdirSync('dist');
-}
-
-function getLastCommit(filename) {
-	let command = util.format("git show --format=\"{\\\"id\\\": \\\"%%H\\\", \\\"short\\\": \\\"%%h\\\", \\\"date\\\": \\\"%%cI\\\"}\" %s | head -1", 'abc');
-
 }
 
 function build() {
